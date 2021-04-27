@@ -1,5 +1,5 @@
-import { authService } from "fbInstance";
 import React from "react";
+import { authService } from "fbInstance";
 import { useHistory } from "react-router";
 
 export default () => {

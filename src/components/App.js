@@ -5,6 +5,7 @@ import { authService } from "fbInstance";
 function App() {
   const [init, setInit] = useState(false);
   const [isLoggedIn, SetIsLoggedIn] = useState(false);
+  const [userObj, setUserObj] = useState(null);
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
       if (user) {
@@ -12,13 +13,18 @@ function App() {
       } else {
         SetIsLoggedIn(false);
       }
+      setUserObj(user);
       setInit(true);
     });
   }, []);
 
   return (
     <>
-      {init ? <AppRouter isLoggedIn={isLoggedIn} /> : "Initializing..."}
+      {init ? (
+        <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} />
+      ) : (
+        "Initializing..."
+      )}
       <footer>&copy; {new Date().getFullYear()} Twitter-Clone-Neva</footer>
     </>
   );
