@@ -26,7 +26,7 @@ const Tweet = ({ tweetObj, isOwner }) => {
   };
   return (
     <div>
-      {editing ? (
+      {editing && isOwner ? (
         <>
           <form onSubmit={onSubmit}>
             <input

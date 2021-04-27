@@ -4,15 +4,9 @@ import { authService } from "fbInstance";
 
 function App() {
   const [init, setInit] = useState(false);
-  const [isLoggedIn, SetIsLoggedIn] = useState(false);
   const [userObj, setUserObj] = useState(null);
   useEffect(() => {
     authService.onAuthStateChanged((user) => {
-      if (user) {
-        SetIsLoggedIn(true);
-      } else {
-        SetIsLoggedIn(false);
-      }
       setUserObj(user);
       setInit(true);
     });
@@ -21,7 +15,7 @@ function App() {
   return (
     <>
       {init ? (
-        <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} />
+        <AppRouter isLoggedIn={Boolean(userObj)} userObj={userObj} />
       ) : (
         "Initializing..."
       )}
