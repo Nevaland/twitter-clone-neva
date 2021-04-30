@@ -52,7 +52,7 @@ const TweetFactory = ({ userObj }) => {
       reader.readAsDataURL(theFile);
     }
   };
-  const onClearAttachment = () => setAttachment(null);
+  const onClearAttachment = () => setAttachment("");
 
   return (
     <form onSubmit={onSubmit}>
