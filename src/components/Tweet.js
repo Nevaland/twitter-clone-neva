@@ -1,4 +1,4 @@
-import { dbService } from "fbInstance";
+import { dbService, storageService } from "fbInstance";
 import React, { useState } from "react";
 
 const Tweet = ({ tweetObj, isOwner }) => {
@@ -8,6 +8,9 @@ const Tweet = ({ tweetObj, isOwner }) => {
     const ok = window.confirm("Are you sure you want to delete this Tweet?");
     if (ok) {
       await dbService.doc(`tweets/${tweetObj.id}`).delete();
+      if (tweetObj.attachmentUrl !== "") {
+        await storageService.refFromURL(tweetObj.attachmentUrl).delete();
+      }
     }
   };
   const toggleEditing = () => setEditing((prev) => !prev);
@@ -43,8 +46,17 @@ const Tweet = ({ tweetObj, isOwner }) => {
       ) : (
         <>
           <h4>{tweetObj.text}</h4>
+          {tweetObj.attachmentUrl && (
+            <img
+              src={tweetObj.attachmentUrl}
+              width="50px"
+              height="50px"
+              alt="Tweet Attachment"
+            />
+          )}
           {isOwner && (
             <>
+              <br />
               <button onClick={onDeleteClick}>Delete Tweet</button>
               <button onClick={toggleEditing}>Edit Tweet</button>
             </>
