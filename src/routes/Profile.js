@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { authService, dbService } from "fbInstance";
+import React, { useState } from "react";
+import { authService } from "fbInstance";
 import { useHistory } from "react-router";
 
 export default ({ refreshUser, userObj }) => {
